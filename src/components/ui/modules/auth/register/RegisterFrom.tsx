@@ -24,16 +24,20 @@ import { registrationSchema } from "./register.validation";
 
 const RegisterFrom = () => {
   const form = useForm({
-    resolver : zodResolver(registrationSchema)
+    resolver: zodResolver(registrationSchema)
   });
+  const password = form.watch("password");
+  const confirmPassword = form.watch("confirmPassword");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit : SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsSubmitting(true);
     console.log("Form Data:", data);
-    
+
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -189,7 +193,13 @@ const RegisterFrom = () => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage className="text-xs" />
+                    {
+                      confirmPassword && password !== confirmPassword ?
+                        <FormMessage>
+                          Password does not match
+                        </FormMessage> : (
+                          <FormMessage className="text-xs" />
+                        )}
                   </FormItem>
                 )}
               />
@@ -199,10 +209,11 @@ const RegisterFrom = () => {
             <div className="animate-fade-in delay-400">
               <Button
                 type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-3 rounded-lg text-base font-semibold shadow-md transition-all duration-300 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${
-                  isSubmitting ? "opacity-75 cursor-not-allowed" : "hover:shadow-lg"
-                }`}
+                disabled={
+                  isSubmitting || (!!confirmPassword && password !== confirmPassword)
+                }
+                className={`w-full py-3 rounded-lg text-base font-semibold shadow-md transition-all duration-300 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${isSubmitting ? "opacity-75 cursor-not-allowed" : "hover:shadow-lg"
+                  }`}
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center">
@@ -217,7 +228,7 @@ const RegisterFrom = () => {
                 )}
               </Button>
             </div>
-          </form>   
+          </form>
         </Form>
 
         {/* Already have account */}
