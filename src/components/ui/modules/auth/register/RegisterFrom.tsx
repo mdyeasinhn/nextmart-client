@@ -18,6 +18,8 @@ import { useState } from "react";
 import { registrationSchema } from "./register.validation";
 import { registerUser } from "@/services/AuthServices";
 import Logo from "@/app/assets/svg/Logo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function RegisterForm() {
   // Setup form with validation using zod schema
@@ -33,7 +35,7 @@ export default function RegisterForm() {
   // Watch password fields to compare them
   const password = form.watch("password");
   const passwordConfirm = form.watch("passwordConfirm");
-  
+
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -139,9 +141,9 @@ export default function RegisterForm() {
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
-                            <i className="fa-regular fa-eye-slash text-sm"></i>
+                            <FontAwesomeIcon icon={faEyeSlash} className="text-sm" />
                           ) : (
-                            <i className="fa-regular fa-eye text-sm"></i>
+                            <FontAwesomeIcon icon={faEye} className="text-sm" />
                           )}
                         </button>
                       </div>
@@ -175,9 +177,9 @@ export default function RegisterForm() {
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         >
                           {showConfirmPassword ? (
-                            <i className="fa-regular fa-eye-slash text-sm"></i>
+                            <FontAwesomeIcon icon={faEyeSlash} className="text-sm" />
                           ) : (
-                            <i className="fa-regular fa-eye text-sm"></i>
+                            <FontAwesomeIcon icon={faEye} className="text-sm" />
                           )}
                         </button>
                       </div>
