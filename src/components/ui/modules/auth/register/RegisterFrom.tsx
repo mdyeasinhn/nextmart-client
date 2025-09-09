@@ -14,6 +14,8 @@ import Logo from "@/app/assets/svg/Logo";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema } from "./register.validation";
+import { registerUser } from "@/services/AuthServices";
+import { toast } from "sonner";
 
 // type RegisterFormValues = {
 //   name: string;
@@ -35,7 +37,16 @@ const RegisterFrom = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsSubmitting(true);
-    console.log("Form Data:", data);
+    try {
+      const res = await registerUser(data);
+      if(res?.success){
+        toast.success(res?.message);
+      }else{
+        toast.error(res?.message);
+      }
+    } catch (error) {
+console.log(error)
+    }
 
 
     // Simulate API call
