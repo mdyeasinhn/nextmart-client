@@ -9,24 +9,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Logo from "@/app/assets/svg/Logo";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registrationSchema } from "./register.validation";
 
-type RegisterFormValues = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+// type RegisterFormValues = {
+//   name: string;
+//   email: string;
+//   password: string;
+//   confirmPassword: string;
+// };
 
 const RegisterFrom = () => {
-  const form = useForm<RegisterFormValues>();
+  const form = useForm({
+    resolver : zodResolver(registrationSchema)
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = async (data: RegisterFormValues) => {
+  const onSubmit : SubmitHandler<FieldValues> = async (data) => {
     setIsSubmitting(true);
     console.log("Form Data:", data);
     
