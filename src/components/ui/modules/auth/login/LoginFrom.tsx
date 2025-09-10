@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useState } from "react";
 
-import { loginUser } from "@/services/AuthServices";
+import { loginUser, reCaptchaTokenVerification } from "@/services/AuthServices";
 import Logo from "@/app/assets/svg/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +29,7 @@ export default function LoginForm() {
         resolver: zodResolver(loginSchema),
     });
 
+    const [reCaptchaStatus, setReCaptchaStatus] = useState(false)
     // Get form submission state
     const {
         formState: { isSubmitting },
@@ -40,8 +41,15 @@ export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
 
     //Handle ReCAPTCHA
-    const handleRecaptcha = (value: string | null) => {
-        console.log(value)
+    const handleRecaptcha = async (value: string | null) => {
+        try {
+            const res = await reCaptchaTokenVerification(value!)
+            if (res?.success) {
+                setReCaptchaStatus(true)
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     // Handle form submission
@@ -148,7 +156,7 @@ export default function LoginForm() {
                         {/* Submit button */}
                         <div className="animate-fade-in delay-400 pt-2">
                             <Button
-                                disabled={isSubmitting}
+                                disabled={reCaptchaStatus ? false : true}
                                 type="submit"
                                 className="w-full py-3 rounded-lg text-base font-semibold shadow-md transition-all duration-300 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
                             >
