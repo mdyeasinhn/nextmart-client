@@ -21,6 +21,7 @@ import Logo from "@/app/assets/svg/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { loginSchema } from "./login.validation";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginForm() {
     // Setup form with validation using zod schema
@@ -37,6 +38,11 @@ export default function LoginForm() {
 
     // State to toggle password visibility
     const [showPassword, setShowPassword] = useState(false);
+
+    //Handle ReCAPTCHA
+    const handleRecaptcha = (value: string | null) => {
+        console.log(value)
+    }
 
     // Handle form submission
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -132,8 +138,12 @@ export default function LoginForm() {
                                 )}
                             />
                         </div>
+                        <div className="flex justify-center mt-3 w-full">
+                            <ReCAPTCHA
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY ?? ""}
+                                onChange={handleRecaptcha} />
 
-
+                        </div>
 
                         {/* Submit button */}
                         <div className="animate-fade-in delay-400 pt-2">
