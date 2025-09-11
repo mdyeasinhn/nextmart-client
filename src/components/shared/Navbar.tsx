@@ -1,7 +1,7 @@
 "use client"
 import { Heart, LogOut, ShoppingBag } from "lucide-react";
 import Logo from "@/app/assets/svg/Logo";
-import { Button } from "../button";
+
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -14,6 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { logout } from "@/services/AuthServices";
 import { useUser } from "@/context/UserContext";
+import { Button } from "../ui/button";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
