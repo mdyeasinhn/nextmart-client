@@ -80,3 +80,8 @@ export const reCaptchaTokenVerification = async (token: string) => {
     return Error(err);
   }
 };
+
+//logout user function
+export const logout = async()=>{
+    (await cookies()).delete("accessToken")
+}
