@@ -17,9 +17,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 
 
-import { toast } from "sonner";
+
 import Logo from "@/app/assets/svg/Logo";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 
 export default function CreateShopForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -32,32 +33,33 @@ export default function CreateShopForm() {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const servicesOffered = data?.servicesOffered
-      .split(",")
-      .map((service: string) => service.trim())
-      .filter((service: string) => service !== "");
+    console.log(data)
+    // const servicesOffered = data?.servicesOffered
+    //   .split(",")
+    //   .map((service: string) => service.trim())
+    //   .filter((service: string) => service !== "");
 
-    const modifiedData = {
-      ...data,
-      servicesOffered: servicesOffered,
-      establishedYear: Number(data?.establishedYear),
-    };
+    // const modifiedData = {
+    //   ...data,
+    //   servicesOffered: servicesOffered,
+    //   establishedYear: Number(data?.establishedYear),
+    // };
 
-    try {
-      const formData = new FormData();
-      formData.append("data", JSON.stringify(modifiedData));
-      formData.append("logo", imageFiles[0] as File);
+    // try {
+    //   const formData = new FormData();
+    //   formData.append("data", JSON.stringify(modifiedData));
+    //   formData.append("logo", imageFiles[0] as File);
 
-      const res = await createShop(formData);
+    //   const res = await createShop(formData);
 
-      console.log(res);
+    //   console.log(res);
 
-      if (res.success) {
-        toast.success(res.message);
-      }
-    } catch (err: any) {
-      console.error(err);
-    }
+    //   if (res.success) {
+    //     toast.success(res.message);
+    //   }
+    // } catch (err: any) {
+    //   console.error(err);
+    // }
   };
 
   return (
