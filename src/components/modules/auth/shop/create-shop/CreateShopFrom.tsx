@@ -33,33 +33,33 @@ export default function CreateShopForm() {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
-    // const servicesOffered = data?.servicesOffered
-    //   .split(",")
-    //   .map((service: string) => service.trim())
-    //   .filter((service: string) => service !== "");
 
-    // const modifiedData = {
-    //   ...data,
-    //   servicesOffered: servicesOffered,
-    //   establishedYear: Number(data?.establishedYear),
-    // };
+    const servicesOffered = data?.servicesOffered
+      .split(",")
+      .map((service: string) => service.trim())
+      .filter((service: string) => service !== "");
 
-    // try {
-    //   const formData = new FormData();
-    //   formData.append("data", JSON.stringify(modifiedData));
-    //   formData.append("logo", imageFiles[0] as File);
+    const modifiedData = {
+      ...data,
+      servicesOffered: servicesOffered,
+      establishedYear: Number(data?.establishedYear),
+    };
 
-    //   const res = await createShop(formData);
+    try {
+      // const formData = new FormData();
+      // formData.append("data", JSON.stringify(modifiedData));
+      // formData.append("logo", imageFiles[0] as File);
 
-    //   console.log(res);
+      // const res = await createShop(formData);
 
-    //   if (res.success) {
-    //     toast.success(res.message);
-    //   }
-    // } catch (err: any) {
-    //   console.error(err);
-    // }
+      // console.log(res);
+
+      // if (res.success) {
+      //   toast.success(res.message);
+      // }
+    } catch (err: any) {
+      console.error(err);
+    }
   };
 
   return (
