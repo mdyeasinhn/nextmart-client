@@ -1,4 +1,4 @@
-import CreateShopForm from "@/components/modules/auth/shop/create-shop/CreateShopFrom";
+import CreateShopForm from "@/components/modules/shop/create-shop/CreateShopFrom";
 
 const CreateShop = () => {
     return (

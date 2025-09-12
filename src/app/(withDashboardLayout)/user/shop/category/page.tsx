@@ -1,9 +1,10 @@
+import ManageCategories from "@/components/modules/shop/category";
 
 
 const ProductCategoryPage = () => {
     return (
         <div>
-            Product Category Page
+           <ManageCategories/>
         </div>
     );
 };
