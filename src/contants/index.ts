@@ -1,4 +1,4 @@
-export const proctedRoutes = [
+export const protectedRoutes = [
     "/login",
     "/create-shop",
     "/admin",

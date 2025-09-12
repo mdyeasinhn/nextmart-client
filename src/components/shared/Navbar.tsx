@@ -16,7 +16,7 @@ import { logout } from "@/services/AuthServices";
 import { useUser } from "@/context/UserContext";
 import { Button } from "../ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import { proctedRoutes } from "@/contants";
+import { protectedRoutes } from "@/contants";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -26,7 +26,7 @@ export default function Navbar() {
   const handleLogOut = () => {
     logout();
     setIsLoading(true);
-    if(proctedRoutes.some((route)=>pathname.match(route))){
+    if(protectedRoutes.some((route)=>pathname.match(route))){
       router.push('/')
     }
   }
