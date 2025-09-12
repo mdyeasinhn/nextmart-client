@@ -22,13 +22,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { loginSchema } from "./login.validation";
 import ReCAPTCHA from "react-google-recaptcha";
+import {  useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
     // Setup form with validation using zod schema
     const form = useForm({
         resolver: zodResolver(loginSchema),
     });
-
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirectPath") 
+    const router = useRouter(); 
     const [reCaptchaStatus, setReCaptchaStatus] = useState(false)
     // Get form submission state
     const {
@@ -59,6 +62,11 @@ export default function LoginForm() {
             const res = await loginUser(data);
             if (res?.success) {
                 toast.success(res?.message);
+                if(redirect){
+                    router.push(redirect)
+                }else{
+                    router.push('/profile')
+                }
             } else {
                 toast.error(res?.message);
             }
@@ -148,7 +156,7 @@ export default function LoginForm() {
                         </div>
                         <div className="flex justify-center mt-3 w-full">
                             <ReCAPTCHA
-                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY ?? ""}
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY ?? "" }
                                 onChange={handleRecaptcha} />
 
                         </div>
