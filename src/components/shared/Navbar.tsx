@@ -26,10 +26,11 @@ export default function Navbar() {
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
-        <h1 className="text-2xl font-black flex items-center">
+     <Link href='/'>
+        <h1 className="text-2xl font-black flex items-center cursor-pointer">
           <Logo />
           ext Mart
-        </h1>
+        </h1></Link>
         <div className="max-w-md  flex-grow">
           <input
             type="text"
@@ -47,16 +48,18 @@ export default function Navbar() {
           {user ?
             <>
               <Link href="/create-shop">
-                <Button className="rounded-full" >
+                <Button className="rounded-full cursor-pointer" >
                   Create Shop
                 </Button>
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Avatar>
+                <div className="cursor-pointer">
+                    <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>User</AvatarFallback>
                   </Avatar>
+                </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
