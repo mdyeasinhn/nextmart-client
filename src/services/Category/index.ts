@@ -3,9 +3,9 @@
 
 import { cookies } from "next/headers";
 
-export const createShop = async (data: FormData) => {
+export const createCategory = async (data: FormData) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASIC_API}/shop`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASIC_API}/category`, {
       method: "POST",
       headers: {
         Authorization: (await cookies()).get("accessToken")!.value,
