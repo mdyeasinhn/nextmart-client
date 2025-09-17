@@ -37,7 +37,7 @@ export const getAllCategories = async () => {
 export const deleteCategory = async (categoryId: string): Promise<any> => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/category/${categoryId}`,
+      `${process.env.NEXT_PUBLIC_BASIC_API}/category/${categoryId}`,
       {
         method: "DELETE",
         headers: {

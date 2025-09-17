@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import CreateCategoryModal from "./CreateCategoryModal";
@@ -6,15 +7,42 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { Trash } from "lucide-react";
 import { ICategory } from "@/types/category";
+import DeleteConfirmationModal from "@/components/ui/core/NMMODAL/DeleteConfirmationModal";
+import { useState } from "react";
+import { deleteCategory } from "@/services/Category";
+import { toast } from "sonner";
 
 type TCategoriesProps = {
   categories: ICategory[];
 };
 
 const ManageCategories = ({ categories }: TCategoriesProps) => {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const handleDelete = (data: ICategory) => {
     console.log(data);
+    setSelectedId(data?._id);
+    setSelectedItem(data?.name);
+    setModalOpen(true);
   };
+  const handleDeleteConfirm = async () => {
+    try {
+      if (selectedId) {
+        const res = await deleteCategory(selectedId);
+        console.log("res->",res);
+        if (res.success) {
+          toast.success(res.message);
+          setModalOpen(false);
+        } else {
+          toast.error(res.message);
+        }
+      }
+    } catch (err: any) {
+      console.error(err?.message);
+    }
+  };
+
 
   const columns: ColumnDef<ICategory>[] = [
     {
@@ -73,6 +101,12 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
       </div>
       <div className="mt-5">
         <NMTable data={categories} columns={columns} />
+        <DeleteConfirmationModal
+          name={selectedItem}
+          isOpen={isModalOpen}
+          onOpenChange={setModalOpen}
+          onConfirm={handleDeleteConfirm}
+        />
       </div>
     </div>
   );
