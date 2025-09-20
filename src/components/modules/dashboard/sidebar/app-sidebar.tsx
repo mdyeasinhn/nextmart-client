@@ -39,12 +39,12 @@ const data = {
     },
     {
       title: "Shop",
-      url: "/user/shop/all-products",
+      url: "/user/shop/products",
       icon: Bot,
       items: [
         {
           title: "Manage Products",
-          url: "/user/shop/all-products",
+          url: "/user/shop/products",
         },
         {
           title: "Manage Categories",
