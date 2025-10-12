@@ -8,10 +8,8 @@ const UpdateProductPage = async ({ params, }: { params: Promise<{ productId: str
     return (
         <div>
             i am page
-
         </div>
-    );
+    ); 
 };
 
-export default UpdateProductPage
-    ;
+export default UpdateProductPage;
